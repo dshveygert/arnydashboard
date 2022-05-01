@@ -1,12 +1,22 @@
 const gpio = require('../gpio');
-const timeOn = [21, 0];
-const timeOff = [8, 0];
+const sun = require('sun-time');
+const location = [55.030518, 82.925092];
+let timeOn = [21, 0];
+let timeOff = [8, 0];
 const pingPeriod = 5 * 1000; // 5 sec
+const pingPeriodSun = 86000 * 1000; // 23,3 h
 let intervalOn;
+let sunTimeInterval;
+
+function sunTimeCalculate() {
+  const {rise, set} = sun(location, new Date(), {format:"24h"});
+  timeOn = set && set.split(':');
+  timeOn = [+timeOn[0], +timeOn[1]];
+  timeOff = rise && rise.split(':');
+  timeOff = [+timeOff[0], +timeOff[1]];
+}
 
 function ambientToggler() {
-  // console.log('timeOn', timeOn);
-  // console.log('timeOff', timeOff);
   const nowDate = new Date();
   const hour = nowDate.getHours();
   const min = nowDate.getMinutes();
@@ -24,6 +34,8 @@ function ambientToggler() {
 
 function init() {
   intervalOn = setInterval(ambientToggler, pingPeriod);
+  sunTimeCalculate();
+  sunTimeInterval = setInterval(sunTimeCalculate, pingPeriodSun);
 }
 
 function destroy() {

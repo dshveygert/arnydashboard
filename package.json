@@ -1,6 +1,6 @@
 {
   "name": "arnydashboard",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.3",
-    "onoff": "^6.0.3"
+    "onoff": "^6.0.3",
+    "sun-time": "^1.0.2"
   }
 }
