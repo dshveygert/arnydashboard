@@ -1,4 +1,4 @@
-import * as gpio from '../gpio.js';
+import * as gpio from './gpio.js';
 import sun from 'sun-time';
 
 const location = [55.030518, 82.925092];

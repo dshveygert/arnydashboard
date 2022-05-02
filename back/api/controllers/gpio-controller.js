@@ -1,4 +1,4 @@
-import { statusByPinAsync, statusPinsAsync, switchStatusAsync } from '../../gpio.js';
+import { statusByPinAsync, statusPinsAsync, switchStatusAsync } from '../../automation/gpio.js';
 
 export async function statuses(req, res) {
   const status = await statusPinsAsync();
