@@ -1,5 +1,6 @@
-const gpio = require('../gpio');
-const sun = require('sun-time');
+import * as gpio from '../gpio.js';
+import sun from 'sun-time';
+
 const location = [55.030518, 82.925092];
 let timeOn = [21, 0];
 let timeOff = [8, 0];
@@ -30,9 +31,12 @@ function ambientToggler() {
     gpio.turnOff();
   }
   // console.log('--', gpio.status());
+  // console.log('-', timeOn);
+  // console.log('-', timeOff);
+  // console.log('=', gpio.statusPins());
 }
 
-function init() {
+export function init() {
   intervalOn = setInterval(ambientToggler, pingPeriod);
   sunTimeCalculate();
   sunTimeInterval = setInterval(sunTimeCalculate, pingPeriodSun);
@@ -40,9 +44,15 @@ function init() {
 
 function destroy() {
   clearInterval(intervalOn);
+  clearInterval(sunTimeInterval);
 }
 
-module.exports = {
-  init,
-  destroy
-}
+process.on('SIGINT', _ => {
+  destroy();
+});
+
+//
+// module.exports = {
+//   init,
+//   destroy
+// }
