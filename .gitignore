@@ -106,3 +106,7 @@ dist
 
 .idea
 /back/automation/config/notification-config.js
+/front/node_modules
+/front/.angular
+/front/src/environments/environment.prod.ts
+/front/src/environments/environment.ts
