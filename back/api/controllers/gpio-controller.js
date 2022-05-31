@@ -1,17 +1,17 @@
 import { statusByPinAsync, statusPinsAsync, switchStatusAsync } from '../../automation/gpio.js';
 
-export async function statuses(req, res) {
+export const statuses = async (req, res) => {
   const status = await statusPinsAsync();
   res.status(200).json(status);
 }
 
-export async function statusByName(req, res) {
+export const statusByName = async (req, res) => {
   const status = await statusByPinAsync(req.params && req.params['pinName']);
   res.status(200).json(status);
 }
 
-export async function updateStatus(req, res) {
+export const updateStatus = async (req, res) => {
   const {pinName, pinStatus} = req.body ?? {};
   const status = await switchStatusAsync(pinName, pinStatus);
-  res.status(201).json(status);
+  res.status(200).json(status);
 }

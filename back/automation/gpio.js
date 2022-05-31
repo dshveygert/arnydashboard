@@ -1,32 +1,38 @@
 import { Gpio } from 'onoff';
 const gpioConfig = {
-  out4: {value: new Gpio(4, 'out'), description: 'toilet W_LED'},
+  out4: {value: new Gpio(4, 'out'), description: 'toilet, W_LED'},
   out5: {value: new Gpio(5, 'out'), description: 'kids, relay, W_LED'},
   out16: {value: new Gpio(16, 'out'), description: 'hall, relay, W_LED'},
-  out22: {value: new Gpio(22, 'out'), description: 'kids, relay, R_LED'}
+  out22: {value: new Gpio(22, 'out'), description: 'kids, relay, R_LED'},
+  in23: {value: new Gpio(23, 'in','rising', {debounceTimeout: 2000}), description: 'hall, door reed switch'},
+  in24: {value: new Gpio(24, 'in', 'rising', {debounceTimeout: 2000}), description: 'hall, door bell button'},
+  out25: {value: new Gpio(25, 'out'), description: 'hall, relay, night-light'},
+  out26: {value: new Gpio(26, 'out'), description: 'hall, relay, light'}
 };
 
 const on = 0;
 const off = 1;
 
 export function turnOn(pinName) {
-  if (pinName) {
+  if (pinName && isPinOut(pinName)) {
     gpioConfig[pinName] && gpioConfig[pinName].value.writeSync(on);
   }
 }
 
 export function turnOff(pinName) {
-  if (pinName) {
+  if (pinName && isPinOut(pinName)) {
     gpioConfig[pinName] && gpioConfig[pinName].value.writeSync(off);
   } else {
     Object.keys(gpioConfig).forEach(key => {
-      gpioConfig[key].value.writeSync(off);
+      if (isPinOut(key)) {
+        gpioConfig[key].value.writeSync(off);
+      }
     })
   }
 }
 
 export async function switchStatusAsync(pinName, status) {
-  if (pinName) {
+  if (pinName && isPinOut(pinName)) {
     let error;
     const s = await gpioConfig[pinName] && gpioConfig[pinName].value.write(status, (err) => error = err);
     return {status: "success", message: error};
@@ -54,6 +60,14 @@ export async function statusPinsAsync() {
 
 export function isStatusPinOn(pinName) {
   return statusByPin(pinName) === on;
+}
+
+export function isPinOut(pinName) {
+  return pinName.indexOf('out') !== -1
+}
+
+export function gpioValue(name) {
+  return gpioConfig[name]?.value ?? false;
 }
 
 export function init() {

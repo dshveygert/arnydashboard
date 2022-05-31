@@ -1,5 +1,5 @@
-import * as gpio from './gpio.js';
 import sun from 'sun-time';
+import * as gpio from './gpio.js';
 
 const location = [55.030518, 82.925092];
 let timeOn = [21, 0];
@@ -30,7 +30,6 @@ function ambientToggler() {
   if (timeOff[0] === hour && timeOff[1] === min) {
     gpio.turnOff();
   }
-  // console.log('--', gpio.status());
   // console.log('-', timeOn);
   // console.log('-', timeOff);
   // console.log('=', gpio.statusPins());
@@ -50,9 +49,3 @@ function destroy() {
 process.on('SIGINT', _ => {
   destroy();
 });
-
-//
-// module.exports = {
-//   init,
-//   destroy
-// }
