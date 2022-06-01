@@ -20,3 +20,17 @@ export function nowTime(format, date = new Date()) {
 function addZeroToNumber(n) {
   return n < 10 ? `0${n}` : `${n}`;
 }
+
+let lastUpdateTime = nowTime('unix');
+let debouncePeriod = 5;
+let previousText = 'no_data';
+
+export function debounceMessages(text, delay = debouncePeriod) {
+  const now = nowTime('unix');
+  if (text.includes('Start') || (now - lastUpdateTime > delay) && text !== previousText ) {
+    lastUpdateTime = now;
+    previousText = text;
+    return true;
+  }
+  return false;
+}

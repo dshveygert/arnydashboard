@@ -1,6 +1,6 @@
 // https://github.com/yagop/node-telegram-bot-api/blob/master/doc/usage.md#events
 import TelegramBot from 'node-telegram-bot-api';
-import { nowTime } from '../utils.js';
+import { debounceMessages, nowTime } from '../utils.js';
 
 import notificationConfig from './config/notification-config.js';
 
@@ -16,11 +16,11 @@ function startBot() {
 }
 
 export function sendMessage(text = '', userId = 0) {
-  // if (!debounceMessages(text)) return;
+  if (!debounceMessages(text)) return;
   return bot.sendMessage(notificationConfig.telegram_bot.user[ userId ].id, text);
 }
 export function notifyMessage(text = '', userId = 0) {
-  // if (!debounceMessages(text)) return;
+  if (!debounceMessages(text)) return;
   return botNotifier.sendMessage(notificationConfig.telegram_bot.user[ userId ].id, text);
 }
 
