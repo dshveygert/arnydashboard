@@ -1,4 +1,4 @@
-@import "/src/styles/helpers"
+@import "src/styles/helpers"
 \:host
   position: relative
   z-index: 1
@@ -9,17 +9,28 @@
   margin-bottom: 48px
   @include forSmartphone
     margin-bottom: 24px
+
 .example-spacer
   flex: 1 1 auto
+
 .cards-button
   min-width: 77px
+
 a.logo
   color: #ffffff
   text-decoration: none !important
   @include fsz(18px, 48px)
   font-weight: 400
+
 .mat-toolbar-multiple-rows
   min-height: auto
+
 .mat-toolbar-row,
 .mat-toolbar-single-row
   height: 48px
+
+mat-progress-bar
+  position: fixed
+  top: 0
+  left: 0
+  z-index: 100

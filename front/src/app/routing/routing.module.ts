@@ -1,19 +1,21 @@
-import { NgModule } from '@angular/core';
-import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
-import { HomePageComponent } from '../home/pages/home-page/home-page.component';
-import { SharedModule } from '../shared/shared.module';
-import { LayoutComponent } from './components/layout/layout.component';
-import { NavigationComponent } from "./components/navigation/navigation.component";
-import { FooterComponent } from "./components/footer/footer.component";
-import { NotFoundPage } from './components/not-found/not-found.page';
+import {NgModule} from '@angular/core';
+import {PreloadAllModules, RouterModule, Routes} from "@angular/router";
+import {SharedModule} from '../shared/shared.module';
+import {LayoutComponent} from './components/layout/layout.component';
+import {FooterComponent} from "./components/footer/footer.component";
+import {NotFoundPage} from './components/not-found/not-found.page';
+import {AlarmSwitcherComponent} from "./components/alarm-switcher/alarm-switcher.component";
 
-const components = [LayoutComponent, NavigationComponent, HomePageComponent, FooterComponent];
+const components = [LayoutComponent, FooterComponent, AlarmSwitcherComponent];
 
 const routes: Routes = [
-  {path: '', component: LayoutComponent, children: [
-      {path: '', component: HomePageComponent, pathMatch: 'full'},
+  {
+    path: '', component: LayoutComponent, children: [
+      {path: '', loadChildren: () => import(`../home/home.module`).then(m => m.HomeModule), pathMatch: 'full'},
+      {path: 'settings', loadChildren: () => import(`../settings/settings.module`).then(m => m.SettingsModule), pathMatch: 'full'},
       {path: '**', component: NotFoundPage}
-  ]}
+    ]
+  }
 ];
 
 @NgModule({
@@ -27,4 +29,5 @@ const routes: Routes = [
   exports: [RouterModule],
   declarations: components
 })
-export class RoutingModule { }
+export class RoutingModule {
+}

@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
-import { Router } from "@angular/router";
 import { SubscriptionLike } from "rxjs";
 import { fullUnsubscribe } from "../../../../utils";
 
@@ -16,5 +15,5 @@ export class HomePageComponent implements OnDestroy {
     fullUnsubscribe(this.dataSub);
   }
 
-  constructor(private router: Router) { }
+  constructor() { }
 }

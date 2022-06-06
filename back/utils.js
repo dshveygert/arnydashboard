@@ -22,7 +22,7 @@ function addZeroToNumber(n) {
 }
 
 let lastUpdateTime = nowTime('unix');
-let debouncePeriod = 5;
+let debouncePeriod = 5000;
 let previousText = 'no_data';
 
 export function debounceMessages(text, delay = debouncePeriod) {

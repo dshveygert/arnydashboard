@@ -1,9 +1,47 @@
+@import "src/styles/variables"
 \:host
   display: block
   overflow: hidden
+
 .layout
-  padding: 0
+  display: flex
+  padding: 3px 0 48px
   max-width: 528px
-  margin: 0 auto 4rem
+  margin: 0 auto 0
   background: #252530
   border-radius: 0.875rem
+  position: relative
+  z-index: 1
+
+.footer
+  position: fixed
+  bottom: 0
+  left: 0
+  right: 0
+  z-index: 10
+  height: 48px
+  background: #673ab7
+  display: flex
+  justify-content: space-between
+  align-content: center
+
+mat-progress-bar
+  height: 3px
+  position: fixed
+  top: 0
+  left: 0
+  z-index: 100
+.started
+  padding: 17px 0 0 10px
+  font-size: 12px
+.buttons
+  display: flex
+  .go-out
+    display: block
+    height: 48px
+    width: 26px
+    text-align: center
+    padding-top: 12px
+    margin-right: 10px
+    &.active
+      color: $Green200

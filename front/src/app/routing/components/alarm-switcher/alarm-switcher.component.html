@@ -1,0 +1,8 @@
+<ng-container *ngIf="settingsStatus.statusByName$('alarm')|async as settings">
+  <div class="status" [class.active]="settings === 1" (click)="changeStatus()">
+    <mat-icon aria-hidden="false"
+              aria-label="Example home icon">{{settings === 1 ? 'lock' : 'lock_open'}}</mat-icon>
+  </div>
+</ng-container>
+
+<p>- {{settingsStatus.statusByName$('alarm')|async}}</p>

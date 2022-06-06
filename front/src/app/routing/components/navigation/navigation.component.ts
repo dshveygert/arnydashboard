@@ -1,4 +1,5 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {LoadingService} from "../../../shared/services/loading.service";
 
 @Component({
   selector: 'app-navigation',
@@ -7,4 +8,6 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class NavigationComponent {
+  constructor(public l: LoadingService) {
+  }
 }

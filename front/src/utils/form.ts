@@ -1,6 +1,6 @@
-import { FormGroup } from '@angular/forms';
-import { Params } from '@angular/router';
-import {debounceTime, Subject, SubscriptionLike, tap } from 'rxjs';
+import {FormGroup} from '@angular/forms';
+import {Params} from '@angular/router';
+import {debounceTime, Subject, SubscriptionLike, tap} from 'rxjs';
 
 export function formGroupValidate(formGroup: FormGroup): void {
   for (const item in formGroup.controls) {

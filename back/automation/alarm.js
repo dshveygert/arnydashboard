@@ -1,6 +1,6 @@
 import { gpioValue } from './gpio.js';
 import { nowTime } from '../utils.js';
-import { getConfig } from './config/config.js';
+import { getConfig, setConfig } from './config/config.js';
 import { notifyMessage, sendMessage } from './telegram-bot.js';
 import { sendSMS } from './sms/sms-notification.js';
 
@@ -8,8 +8,9 @@ const doorPin = 'in23';
 
 function sendNotification() {
   const status = getConfig('notification');
+  const alarm = getConfig('alarm');
   const users = getConfig('notificationUsers');
-  if (!!status) {
+  if (!!status && !alarm) {
     users.forEach(id => {
       notifyMessage(`Door opened at ${nowTime('notification')}`, id);
     })
@@ -17,9 +18,9 @@ function sendNotification() {
 }
 
 function sendAlarm() {
-  const status = getConfig('alarm');
+  const alarm = getConfig('alarm');
   const users = getConfig('alarmUsers');
-  if (!!status) {
+  if (!!alarm) {
     users.forEach(id => {
       sendMessage(`Alarm !!! Door opened at ${nowTime('notification')}`, id);
     })
@@ -42,6 +43,7 @@ export function init() {
     if (!!value) {
       sendNotification();
       sendAlarm();
+      setConfig('doorOpenedAt', nowTime());
       // sendSmsNotification();
     }
   })

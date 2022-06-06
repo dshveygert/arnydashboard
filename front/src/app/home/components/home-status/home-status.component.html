@@ -1,0 +1,93 @@
+<ng-container *ngIf="status.data$|async as data">
+  <ng-container *ngIf="!!data && data.length > 0">
+    <mat-card class="status-card">
+      <mat-card-title>Hall</mat-card-title>
+      <mat-card-content>
+        <div class="blocks">
+          <app-light-status
+            title="Light"
+            [status]="status.statusByName('out26')"
+            (changeStatus)="status.changeStatus($event, 'out26')"
+          ></app-light-status>
+          <app-light-status
+            title="N/Light"
+            [status]="status.statusByName('out25')"
+            (changeStatus)="status.changeStatus($event, 'out25')"
+          ></app-light-status>
+          <app-light-status
+            title="W/Led"
+            [status]="status.statusByName('out16')"
+            (changeStatus)="status.changeStatus($event, 'out16')"
+          ></app-light-status>
+          <app-light-status
+            title="Toilet"
+            [status]="status.statusByName('out4')"
+            (changeStatus)="status.changeStatus($event, 'out4')"
+          ></app-light-status>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="status-card">
+      <mat-card-title>Kids</mat-card-title>
+      <mat-card-content>
+        <div class="blocks">
+          <app-light-status
+            title="W/LED"
+            [status]="status.statusByName('out5')"
+            (changeStatus)="status.changeStatus($event, 'out5')"
+          ></app-light-status>
+          <app-light-status
+            title="R/LED"
+            [status]="status.statusByName('out22')"
+            (changeStatus)="status.changeStatus($event, 'out22')"
+          ></app-light-status>
+        </div>
+
+
+      </mat-card-content>
+
+      <mat-divider inset></mat-divider>
+
+      <mat-card-footer>
+        <!--    <mat-progress-bar mode="indeterminate" *ngIf="l.loading$|async"></mat-progress-bar>-->
+      </mat-card-footer>
+    </mat-card>
+
+    <mat-card class="status-card">
+      <mat-card-title>Door</mat-card-title>
+      <mat-card-content>
+        <div class="blocks">
+          <app-door-status
+            [status]="status.statusByName('in23')"
+            [setting]="settingsStatus.statusByName$('doorOpenedAt')"
+          ></app-door-status>
+        </div>
+
+
+      </mat-card-content>
+
+      <mat-divider inset></mat-divider>
+
+      <mat-card-footer>
+        <!--    <mat-progress-bar mode="indeterminate" *ngIf="l.loading$|async"></mat-progress-bar>-->
+      </mat-card-footer>
+    </mat-card>
+
+    <mat-card class="status-card">
+      <mat-card-content>
+        <div class="blocks">
+          <mat-checkbox class="example-margin" [ngModel]="isNotificationOn$|async" (ngModelChange)="toggleNotification()">Notifications</mat-checkbox>
+        </div>
+
+
+      </mat-card-content>
+
+      <mat-divider inset></mat-divider>
+
+      <mat-card-footer>
+        <!--    <mat-progress-bar mode="indeterminate" *ngIf="l.loading$|async"></mat-progress-bar>-->
+      </mat-card-footer>
+    </mat-card>
+  </ng-container>
+</ng-container>

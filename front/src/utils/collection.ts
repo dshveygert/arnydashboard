@@ -18,5 +18,5 @@ export class Collection<T = any> implements ICollection<T> {
     return this._data$;
   }
 
-  public trackByFn = (i: number, item: {id: number}): number => item?.id ?? i;
+  public trackByFn = (i: number, item: { id: number }): number => item?.id ?? i;
 }

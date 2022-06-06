@@ -1,4 +1,7 @@
 import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/core';
+import {SettingsStatusService} from "../../../shared/services/settings-status.service";
+import {LoadingService} from "../../../shared/services/loading.service";
+import {map, Observable} from "rxjs";
 
 @Component({
   selector: 'app-layout',
@@ -8,10 +11,22 @@ import {ChangeDetectionStrategy, Component, OnDestroy, OnInit} from '@angular/co
 })
 export class LayoutComponent implements OnInit, OnDestroy {
 
-  ngOnInit(): void {
-  }
-  ngOnDestroy(): void {
+  get started$(): Observable<string> {
+    return this.settingsStatus.statusByName$('started').pipe(map(d => d?.toString()));
   }
 
-  constructor() { }
+  get activeGoOut$(): Observable<boolean> {
+    return this.settingsStatus.statusByName$('imGoOut').pipe(map(d => d == 1));
+  }
+
+  ngOnInit(): void {
+    this.settingsStatus.init();
+  }
+
+  ngOnDestroy(): void {
+    this.settingsStatus.destroy();
+  }
+
+  constructor(public settingsStatus: SettingsStatusService, public l: LoadingService) {
+  }
 }
