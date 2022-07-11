@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {filter, finalize, first, map, Observable, SubscriptionLike, tap} from 'rxjs';
-import {IGPIOStatus, ISettings} from "../../api/models";
+import {IAmbientPeriod, IGPIOStatus, ISettings} from "../../api/models";
 import {fullUnsubscribe, Collection} from "../../../utils";
 import {PiApi} from "../../api/methods";
 import {LoadingService} from "./loading.service";
@@ -13,7 +13,7 @@ export class SettingsStatusService extends Collection<ISettings> {
 
   private settingsStatus = (): Observable<ISettings> => {
     return this.api.settingsStatus().pipe(filter(d => !!d), tap(d => {
-      this.data = d;
+      this.data = {...d, ambientIds: d.ambientIds === 0 ? [] : d.ambientIds};
     }), finalize(() => this.l.loading = false));
   }
 
@@ -32,7 +32,7 @@ export class SettingsStatusService extends Collection<ISettings> {
     this.init();
   }
 
-  public statusByName$(name: string): Observable<number | string> {
+  public statusByName$(name: string): Observable<number | string | string[] | IAmbientPeriod> {
     // @ts-ignore
     return this.data$.pipe(filter(d => !!d), map(d => d[name] === 0 ? '0' : d[name]));
   }
@@ -42,7 +42,7 @@ export class SettingsStatusService extends Collection<ISettings> {
     return this.data?.[name];
   }
 
-  public changeStatus(key: string, value: number | string): void {
+  public changeStatus(key: string, value: number | string | string[]): void {
     if (this.l.loading) return;
     this.l.loading = true;
     this.dataSub.push(this.settingsStatusSet(key, value).subscribe());

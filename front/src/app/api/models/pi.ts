@@ -35,4 +35,15 @@ export interface ISettings {
   started: string;
   imGoOut: number;
   imGoOutTimeout: number;
+  nightAmbientLightStatus: number;
+  ambientIds: string[];
+  ambientLightPeriod: IAmbientPeriod
 }
+
+export interface IGPIOList {
+  id: number;
+  name: string;
+  description: string;
+}
+
+export interface IAmbientPeriod {timeOn: [number, number]; timeOff: [number, number]}

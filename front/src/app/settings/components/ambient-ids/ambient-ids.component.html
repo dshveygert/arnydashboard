@@ -1,0 +1,29 @@
+<mat-card class="status-card">
+  <mat-card-content>
+    <div class="blocks settings-data">
+      <div class="pin item-block">
+        <mat-checkbox class="example-margin" [ngModel]="isAmbientOn$|async" (ngModelChange)="toggleAmbient()">Ambient light</mat-checkbox>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+<ng-container *ngIf="data$|async as data">
+  <ng-container *ngIf="!!data && data.length > 0; else noGPIO">
+    <mat-card class="status-card">
+      <mat-card-content>
+        <div class="blocks settings-data">
+          <div class="item" *ngFor="let item of data">
+            <div class="pin item-block">
+              <mat-checkbox class="example-margin" [ngModel]="item.value" (ngModelChange)="toggleAmbientPin(item)" [disabled]="isDisabled$|async">{{item.name}}</mat-checkbox>
+            </div>
+            <div class="description item-block" (click)="toggleAmbientPin(item)">{{item.description}}</div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+  <ng-template #noGPIO>No GPIO has been found.</ng-template>
+</ng-container>
+<div class="time">
+  {{ambientPeriod$|async}}
+</div>

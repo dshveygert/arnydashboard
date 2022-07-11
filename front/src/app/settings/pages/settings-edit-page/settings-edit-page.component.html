@@ -1,0 +1,9 @@
+<div class="content-block">
+<div class="settings-edit" [ngSwitch]="key$|async">
+  <div class="settings-item" *ngSwitchCase="'ambientIds'">
+    <h3>Select GPIO for Ambient light</h3>
+    <app-ambient-ids></app-ambient-ids>
+  </div>
+  <div class="settings-item" *ngSwitchDefault><pre>{{defaultData$|async}}</pre></div>
+</div>
+</div>

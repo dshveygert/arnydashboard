@@ -74,13 +74,14 @@
       </mat-card-footer>
     </mat-card>
 
-    <mat-card class="status-card">
+    <mat-card class="status-card quick-settings">
       <mat-card-content>
         <div class="blocks">
           <mat-checkbox class="example-margin" [ngModel]="isNotificationOn$|async" (ngModelChange)="toggleNotification()">Notifications</mat-checkbox>
         </div>
-
-
+        <div class="blocks">
+          <mat-checkbox class="example-margin" [ngModel]="isAmbientOn$|async" (ngModelChange)="toggleAmbient()">Ambient light</mat-checkbox>
+        </div>
       </mat-card-content>
 
       <mat-divider inset></mat-divider>

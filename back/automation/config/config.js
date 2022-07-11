@@ -1,4 +1,5 @@
 // all periods in sec.
+
 const automationConfig = {
   hallLightPeriod: 300,
   hallLightPending: 10,
@@ -11,7 +12,10 @@ const automationConfig = {
   smsUsers: [0],
   doorOpenedAt: 'NoData',
   started: 'NoData',
-  imGoOut: 0
+  imGoOut: 0,
+  nightAmbientLightStatus: 0,
+  ambientIds: ['out4'],
+  ambientLightPeriod: {timeOn: [21, 0], timeOff: [8, 0]}
 }
 
 export function getAllConfigs() {
@@ -24,6 +28,6 @@ export function getConfig(key) {
 
 export function setConfig(key, value) {
   if (!!automationConfig[key] || automationConfig[key] === 0 || automationConfig[key] === '') {
-    automationConfig[key] = Number(value) == value ? Number(value) : value;
+    automationConfig[key] = value !== [] && Number(value) == value ? Number(value) : value;
   }
 }

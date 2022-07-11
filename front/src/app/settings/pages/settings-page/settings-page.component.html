@@ -1,34 +1,31 @@
-<div class="content-wrapper">
-
-  <div class="content-block">
-    <ng-container *ngIf="settingsArr$|async as data">
+<div class="content-block">
+  <ng-container *ngIf="settingsArr$|async as data">
+    <mat-card class="status-card">
+      <mat-card-title>Settings</mat-card-title>
+      <mat-card-content>
+        <div class="blocks settings-data settings">
+          <div class="item" *ngFor="let item of data"  (click)="goToSettings(item.key)">
+            <div class="key item-block">{{item.key}}</div>
+            <div class="value item-block" [innerHTML]="item.value"></div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </ng-container>
+  <ng-container *ngIf="status.data$|async as data">
+    <ng-container *ngIf="!!data && data.length > 0">
       <mat-card class="status-card">
-        <mat-card-title>Settings</mat-card-title>
+        <mat-card-title>Statuses</mat-card-title>
         <mat-card-content>
-          <div class="blocks settings-data">
+          <div class="blocks settings-data statuses">
             <div class="item" *ngFor="let item of data">
-              <div class="key item-block">{{item.key}}</div>
-              <div class="value item-block" [innerHTML]="item.value"></div>
+              <div class="pin item-block">{{item.key}}</div>
+              <div class="status item-block">{{statusInfo(item.key, item.status)}}</div>
+              <div class="description item-block">{{item.description}}</div>
             </div>
           </div>
         </mat-card-content>
       </mat-card>
     </ng-container>
-    <ng-container *ngIf="status.data$|async as data">
-      <ng-container *ngIf="!!data && data.length > 0">
-        <mat-card class="status-card">
-          <mat-card-title>Statuses</mat-card-title>
-          <mat-card-content>
-            <div class="blocks settings-data">
-              <div class="item" *ngFor="let item of data">
-                <div class="pin item-block">{{item.key}}</div>
-                <div class="status item-block">{{statusInfo(item.key, item.status)}}</div>
-                <div class="description item-block">{{item.description}}</div>
-              </div>
-            </div>
-          </mat-card-content>
-        </mat-card>
-      </ng-container>
-    </ng-container>
-  </div>
+  </ng-container>
 </div>

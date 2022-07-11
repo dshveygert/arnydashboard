@@ -1,17 +1,23 @@
 import { Router } from 'express';
 import bodyParser from 'body-parser';
-import { statuses, statusByName, updateStatus } from './controllers/gpio-controller.js';
+import { statuses, statusByName, updateStatus, gpioList } from './controllers/gpio-controller.js';
 import { goOut, settingByName, settings, updateSettings } from './controllers/settings-controller.js';
 const router = Router();
 const api = '/api';
 const gpioAPI = `${api}/gpio`;
 const settingsAPI = `${api}/settings`;
 
+// GPIO
+
 router.get(`${gpioAPI}/status`, statuses);
 
 router.get(`${gpioAPI}/status/:pinName`, statusByName);
 
 router.put(`${gpioAPI}/status`, bodyParser.json(), updateStatus);
+
+router.get(`${gpioAPI}/list`, gpioList);
+
+// Settings
 
 router.get(`${settingsAPI}`, settings);
 

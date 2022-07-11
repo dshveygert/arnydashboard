@@ -1,10 +1,20 @@
 import {Injectable} from '@angular/core';
-import {IGPIO, TGPIO, TGPIOCategory} from 'src/app/api/models';
+import {IGPIO, IGPIOList, TGPIO, TGPIOCategory} from 'src/app/api/models';
+import {Collection} from "../../../utils";
+import {filter, finalize, first, Observable, startWith, SubscriptionLike, tap} from "rxjs";
+import {PiApi} from "../../api/methods";
+import {LoadingService} from "./loading.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class GpioConfigurationService {
+export class GpioConfigurationService extends Collection<IGPIOList[]> {
+  private dataSub: SubscriptionLike[] = [];
+
+  get data$(): Observable<IGPIOList[]> {
+    return this._data$.pipe(startWith([]));
+  }
+
   private _gpioConfig: IGPIO[] = [
     {id: 4, name: 'out4', type: 'out', description: 'Toilet, W_LED', category: ['toilet']},
     {id: 5, name: 'out5', type: 'out', description: 'Kids, relay, W_LED', category: ['kids']},
@@ -25,6 +35,17 @@ export class GpioConfigurationService {
     return this._gpioConfig.filter(i => i.type === type && i.category.findIndex(n => n === cat) >= 0);
   }
 
-  constructor() {
+  private settingsStatus = (): Observable<IGPIOList[]> => {
+    return this.api.gpioList().pipe(filter(d => !!d), tap(d => {
+      this.data = d;
+    }), finalize(() => this.l.loading = false));
+  }
+
+  public getOutputPins(): void {
+    this.dataSub.push(this.settingsStatus().pipe(first()).subscribe())
+  }
+
+  constructor(private api: PiApi, private l: LoadingService) {
+    super();
   }
 }

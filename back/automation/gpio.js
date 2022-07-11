@@ -70,6 +70,14 @@ export function gpioValue(name) {
   return gpioConfig[name]?.value ?? false;
 }
 
+export function getOutputPinsList() {
+  return Object.keys(gpioConfig).filter(key => {
+    return isPinOut(key);
+  }).map(key => {
+    return {id: +key.replace('out', ''),name: key, description: gpioConfig[key].description};
+  });
+}
+
 export function init() {
   turnOff();
 }

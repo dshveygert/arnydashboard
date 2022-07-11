@@ -22,6 +22,15 @@ export class HomeStatusComponent implements OnInit, OnDestroy {
     this.settingsStatus.changeStatus('notification', current === 1 ? 0 : 1);
   }
 
+  get isAmbientOn$(): Observable<boolean> {
+    return this.settingsStatus.statusByName$('nightAmbientLightStatus').pipe(map(d => d === 1));
+  }
+
+  public toggleAmbient(): void {
+    const current = this.settingsStatus.statusByName('nightAmbientLightStatus');
+    this.settingsStatus.changeStatus('nightAmbientLightStatus', current === 1 ? 0 : 1);
+  }
+
   ngOnInit(): void {
     this.status.init();
   }

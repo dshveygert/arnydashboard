@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
-import {IGPIOStatus} from "../models";
+import {IGPIOList, IGPIOStatus} from "../models";
 
 @Injectable()
 export class PiApi {
@@ -16,6 +16,10 @@ export class PiApi {
 
   public gpioStatus(): Observable<IGPIOStatus[]> {
     return this.http.get<IGPIOStatus[]>(`${this.gpio}/status`);
+  }
+
+  public gpioList(): Observable<IGPIOList[]> {
+    return this.http.get<IGPIOList[]>(`${this.gpio}/list`);
   }
 
   public settingsUpdate(data: { key: string, value: any }): Observable<any> {

@@ -5,9 +5,10 @@
     <div class="menu">
       <div class="started" *ngIf="started$|async as started" routerLink="/">{{started}}</div>
       <mat-icon aria-hidden="false" aria-label="goout" class="go-out" routerLink="/" *ngIf="!(started$|async)">home</mat-icon>
+      <mat-icon aria-hidden="false" aria-label="goout" class="go-out settings" routerLink="/settings">settings</mat-icon>
     </div>
     <div class="buttons">
-      <mat-icon aria-hidden="false" aria-label="goout" class="go-out" routerLink="/settings">settings</mat-icon>
+
       <mat-icon aria-hidden="false" aria-label="goout" class="go-out" [class.active]="activeGoOut$|async" (click)="settingsStatus.imGoOut()">logout</mat-icon>
       <app-alarm-switcher></app-alarm-switcher>
     </div>

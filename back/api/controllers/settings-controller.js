@@ -15,7 +15,6 @@ export const settingByName = async (req, res) => {
 
 export const updateSettings = async (req, res) => {
   const {key, value} = req.body ?? {};
-  console.log('key, value', key, value);
   setConfig(key, value)
   // const r = getConfig(key);
   // res.status(200).json(r);
