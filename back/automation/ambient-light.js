@@ -5,8 +5,8 @@ import { getConfig, setConfig } from './config/config.js';
 const location = [55.030518, 82.925092];
 let timeOn = [21, 0];
 let timeOff = [8, 0];
-const pingPeriod = 5 * 1000; // 5 sec
-const pingPeriodSun = 3600 * 1000; // 1 h
+const pingPeriod = 900 * 1000; // 15 min
+const pingPeriodSun = 28800 * 1000; // 8 h
 let intervalOn;
 let sunTimeInterval;
 
@@ -27,18 +27,18 @@ function ambientToggler() {
   const hour = nowDate.getHours();
   const min = nowDate.getMinutes();
   const pins = getConfig('ambientIds') ?? [];
-  // console.log('nowDate hours', hour);
-  // console.log('nowDate minutes', min);
-  if (timeOn[0] > hour || ( timeOn[0] === hour && timeOn[1] >= min)) {
+   //console.log('nowDate hours', hour);
+   //console.log('nowDate minutes', min);
+  if (+hour > +timeOn[0] || ( timeOn[0] === hour && min >= timeOn[1] )) {
     pins.forEach(item => {
       gpio.turnOn(item);
     });
   }
-  if (timeOff[0] < hour || (timeOff[0] === hour && timeOff[1] < min)) {
+  if (hour < timeOff[0] || (timeOff[0] === hour && min < timeOff[1])) {
     gpio.turnOff();
   }
-  // console.log('-', timeOn);
-  // console.log('-', timeOff);
+   //console.log('-', timeOn);
+   //console.log('-', timeOff);
   // console.log('=', gpio.statusPins());
 }
 
@@ -50,7 +50,8 @@ export function init() {
 
 export function ambientLightPeriod() {
   const time = {timeOn, timeOff};
-  setConfig(ambientLightPeriod, time);
+  console.log('ambientLightPeriod', time);
+  setConfig('ambientLightPeriod', time);
   return time;
 }
 
