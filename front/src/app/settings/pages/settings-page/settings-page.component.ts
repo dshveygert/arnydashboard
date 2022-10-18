@@ -1,14 +1,15 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {Router} from "@angular/router";
-import {filter, map, Observable} from "rxjs";
-import {GpioStatusService} from "../../../shared/services/gpio-status.service";
-import {SettingsStatusService} from "../../../shared/services/settings-status.service";
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { filter, map, Observable } from 'rxjs';
+import { GpioStatusService } from '../../../shared/services/gpio-status.service';
+import { SettingsStatusService } from '../../../shared/services/settings-status.service';
+import { TestsService } from '../../../shared/services/tests.service';
 
 @Component({
   selector: 'app-settings-page',
   templateUrl: './settings-page.component.html',
   styleUrls: ['./settings-page.component.sass'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SettingsPageComponent {
 
@@ -21,7 +22,7 @@ export class SettingsPageComponent {
       const a = Object.keys(d)?.map(key => {
         // @ts-ignore
         const value = Array.isArray(d[key]) || d[key] instanceof Object ? JSON.stringify(d[key]) : d[key];
-        return {value, key};
+        return { value, key };
       });
       return a;
     }));
@@ -31,6 +32,23 @@ export class SettingsPageComponent {
     this.router.navigate([`settings/${key}`]).then();
   }
 
-  constructor(public status: GpioStatusService, public settingsStatus: SettingsStatusService, private router: Router) {
+  public alarmTest(): void {
+    this.tests.alarmTest();
+  };
+
+  public testNotification(): void {
+    this.tests.testNotification();
+  };
+
+  get isNotificationDisabled$(): Observable<boolean> {
+    return this.settingsStatus.statusByName$('alarm').pipe(map(d => d === 1));
+  }
+
+  constructor(
+    public status: GpioStatusService,
+    public settingsStatus: SettingsStatusService,
+    private router: Router,
+    private tests: TestsService,
+  ) {
   }
 }

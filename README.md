@@ -10,3 +10,17 @@ Simple pet-project for controlling my raspberry pi i/o and my home light automat
 - Authorisation
 - Logger for changing statuses
 - Sockets
+
+
+## Backend
+
+To start: **node index.js**
+
+
+## Frontend
+
+For build: **npm run build**
+
+Production folder - **./dist**
+
+For development: move to ./front and **npm run start**

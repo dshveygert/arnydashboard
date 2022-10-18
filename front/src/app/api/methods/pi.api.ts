@@ -9,6 +9,7 @@ export class PiApi {
   private api = `${environment.api.host}/api`;
   private gpio = `${this.api}/gpio`;
   private settings = `${this.api}/settings`;
+  private test = `${this.api}/tests`;
 
   public gpioStatusUpdate(data: { pinName: string, pinStatus: 0 | 1 }): Observable<any> {
     return this.http.put<any>(`${this.gpio}/status`, data);
@@ -36,6 +37,14 @@ export class PiApi {
 
   public imGoOut(): Observable<any> {
     return this.http.put<any>(`${this.settings}/goout`, {});
+  }
+
+  public testAlarm(): Observable<any> {
+    return this.http.put<any>(`${this.test}/alarm`, {});
+  }
+
+  public testNotification(): Observable<any> {
+    return this.http.put<any>(`${this.test}/notification`, {});
   }
 
   constructor(private http: HttpClient) {

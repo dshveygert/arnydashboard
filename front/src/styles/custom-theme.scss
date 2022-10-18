@@ -40,7 +40,7 @@ html, body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  color: #fff;
+  color: #ffffff;
 }
 
 .mat-button,
@@ -55,24 +55,28 @@ body {
   align-items: center;
   justify-content: center;
   vertical-align: middle;
-  height: 3.375rem;
-  line-height: 3.375rem;
+  height: 3rem;
+  line-height: 3rem;
   padding: 0 1rem !important;
-  font-size: 0.75em;
+  font-size: 1em;
   font-family: 'Inter', sans-serif;
   letter-spacing: 0.075rem;
-  font-weight: 600;
+  font-weight: 400;
   border-radius: 0.5rem;
   direction: var(--site-language-direction);
-  background-color: #7163D6;
-  color: #FFFFFF;
+  background-color: #7163d6;
+  color: #ffffff;
   transition: color 0.25s ease, background-color 0.25s ease, border-color 0.25s ease;
   position: relative;
+
+  &.mat-button-disabled {
+    opacity: 0.4;
+  }
 }
 
 .mat-raised-button {
   background-color: rgba(113, 99, 214, 0.2);
-  border: 2px solid #7163D6 !important;
+  border: 2px solid #7163d6 !important;
 }
 
 .upper {
@@ -86,7 +90,7 @@ body {
 }
 
 a {
-  color: #7163D6;
+  color: #7163d6;
   text-decoration: none;
 }
 
@@ -95,13 +99,13 @@ a:hover {
 }
 
 *::selection {
-  background: #7E57C2;
-  color: #fff !important;
+  background: #7e57c2;
+  color: #ffffff !important;
 }
 
 *::-moz-selection {
-  background: #7E57C2;
-  color: #fff !important;
+  background: #7e57c2;
+  color: #ffffff !important;
 }
 
 .mat-form-field {
@@ -136,7 +140,7 @@ a:hover {
 }
 
 .mat-menu-item {
-  color: #fff;
+  color: #ffffff;
 }
 
 .mat-card {

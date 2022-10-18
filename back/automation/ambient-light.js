@@ -6,7 +6,7 @@ const location = [55.030518, 82.925092];
 let timeOn = [21, 0];
 let timeOff = [8, 0];
 const pingPeriod = 5 * 1000; // 5 sec
-const pingPeriodSun = 36000 * 1000; // 10 h
+const pingPeriodSun = 3600 * 1000; // 1 h
 let intervalOn;
 let sunTimeInterval;
 
@@ -29,12 +29,12 @@ function ambientToggler() {
   const pins = getConfig('ambientIds') ?? [];
   // console.log('nowDate hours', hour);
   // console.log('nowDate minutes', min);
-  if (timeOn[0] === hour && timeOn[1] === min) {
+  if (timeOn[0] > hour || ( timeOn[0] === hour && timeOn[1] >= min)) {
     pins.forEach(item => {
       gpio.turnOn(item);
     });
   }
-  if (timeOff[0] === hour && timeOff[1] === min) {
+  if (timeOff[0] < hour || (timeOff[0] === hour && timeOff[1] < min)) {
     gpio.turnOff();
   }
   // console.log('-', timeOn);
