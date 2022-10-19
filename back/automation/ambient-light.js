@@ -6,7 +6,7 @@ const location = [55.030518, 82.925092];
 let timeOn = [21, 0];
 let timeOff = [8, 0];
 const pingPeriod = 900 * 1000; // 15 min
-const pingPeriodSun = 28800 * 1000; // 8 h
+const pingPeriodSun = 86340 * 1000; // 23.59 h
 let intervalOn;
 let sunTimeInterval;
 
@@ -24,21 +24,24 @@ function ambientToggler() {
     return;
   }
   const nowDate = new Date();
-  const hour = nowDate.getHours();
-  const min = nowDate.getMinutes();
+  const hour = +nowDate.getHours();
+  const min = +nowDate.getMinutes();
   const pins = getConfig('ambientIds') ?? [];
-   //console.log('nowDate hours', hour);
-   //console.log('nowDate minutes', min);
-  if (+hour > +timeOn[0] || ( timeOn[0] === hour && min >= timeOn[1] )) {
+  const isTimeForLightOn = (hour > +timeOn[0] || ( +timeOn[0] === hour && min >= +timeOn[1] )) || (hour < +timeOff[0] || (+timeOff[0] === hour && min < +timeOff[1]));
+  console.log('isTimeForLightOn', isTimeForLightOn.toString());
+  const isTimeForLightOff = (hour < +timeOn[0] || ( +timeOn[0] === hour && min <= +timeOn[1] )) && (hour > +timeOff[0] || (+timeOff[0] === hour && min > +timeOff[1]));
+  console.log('isTimeForLightOff', isTimeForLightOff.toString());
+   console.log('nowDate hours', hour);
+   console.log('nowDate minutes', min);
+  if (isTimeForLightOn) {
     pins.forEach(item => {
       gpio.turnOn(item);
     });
-  }
-  if (hour < timeOff[0] || (timeOff[0] === hour && min < timeOff[1])) {
+  } else if (isTimeForLightOff) {
     gpio.turnOff();
   }
-   //console.log('-', timeOn);
-   //console.log('-', timeOff);
+   console.log('-', timeOn);
+   console.log('-', timeOff);
   // console.log('=', gpio.statusPins());
 }
 
