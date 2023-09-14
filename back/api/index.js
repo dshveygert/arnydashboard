@@ -14,6 +14,7 @@ app.use(middleware);
 app.use(routes);
 
 export function init() {
+  console.log('Server init');
   app.listen(PORT, ()=> {
     console.log(`Server "arnydashboard" started on ${PORT} at ${nowTime()}`);
   })

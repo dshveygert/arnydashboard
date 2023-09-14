@@ -3,11 +3,13 @@ const gpioConfig = {
   out4: {value: new Gpio(4, 'out'), description: 'toilet, W_LED'},
   out5: {value: new Gpio(5, 'out'), description: 'kids, relay, W_LED'},
   out16: {value: new Gpio(16, 'out'), description: 'hall, relay, W_LED'},
+  in17: {value: new Gpio(17, 'in','rising', {debounceTimeout: 2000}), description: 'Gidrolock alert'},
   out22: {value: new Gpio(22, 'out'), description: 'kids, relay, R_LED'},
   in23: {value: new Gpio(23, 'in','rising', {debounceTimeout: 2000}), description: 'hall, door reed switch'},
   in24: {value: new Gpio(24, 'in', 'rising', {debounceTimeout: 2000}), description: 'hall, door bell button'},
   out25: {value: new Gpio(25, 'out'), description: 'hall, relay, night-light'},
-  out26: {value: new Gpio(26, 'out'), description: 'hall, relay, light'}
+  out26: {value: new Gpio(26, 'out'), description: 'hall, relay, light'},
+  out27: {value: new Gpio(27, 'out'), description: 'Gidrolock switch (on/off tap'}
 };
 
 const on = 0;
@@ -79,6 +81,7 @@ export function getOutputPinsList() {
 }
 
 export function init() {
+  console.log('gpio init');
   turnOff();
 }
 

@@ -16,6 +16,7 @@ function startBot() {
 }
 
 export function sendMessage(text = '', userId = 0) {
+  console.log('-', !debounceMessages(text), text, userId);
   if (!debounceMessages(text)) return;
   return bot.sendMessage(notificationConfig.telegram_bot.user[ userId ].id, text);
 }
@@ -25,5 +26,6 @@ export function notifyMessage(text = '', userId = 0) {
 }
 
 export function init() {
+  console.log('Telegram bot init');
   startBot();
 }

@@ -41,6 +41,7 @@ function sendSmsNotification() {
 }
 
 export function init() {
+  console.log('Door alarm init');
   gpioValue(doorPin).watch((err, value) => {
     if (err) {
       console.log('Alarm. Door pin getting error');

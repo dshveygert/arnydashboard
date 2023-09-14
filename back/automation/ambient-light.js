@@ -46,6 +46,7 @@ function ambientToggler() {
 }
 
 export function init() {
+  console.log('Ambient init');
   intervalOn = setInterval(ambientToggler, pingPeriod);
   sunTimeCalculate();
   sunTimeInterval = setInterval(sunTimeCalculate, pingPeriodSun);

@@ -28,6 +28,7 @@ function lightOn() {
 }
 
 export function init() {
+  console.log('HallLight init');
   gpioValue(doorPin).watch((err, value) => {
     if (err) {
       console.log('Door pin getting error');
