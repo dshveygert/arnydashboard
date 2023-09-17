@@ -1,7 +1,7 @@
-import {gpioValue, isStatusPinOn} from './gpio.js';
+import {gpioValue} from './gpio.js';
 import {nowTime} from '../utils.js';
 import {getConfig, setConfig} from './config/config.js';
-import {alarmQueue, notifyQueue} from './telegram-bot.js';
+import {alarmQueue} from './telegram-bot.js';
 
 const waterAlarmPin = 'in17';
 
@@ -12,11 +12,7 @@ export function sendWaterAlarm(text = 'Water alarm!') {
 }
 
 export function init() {
-    const pinValue = isStatusPinOn(waterAlarmPin);
-    const message = pinValue ? 'WaterAlarm started. Tap is opened.' : 'WaterAlarm started. Tap is closed.';
-    const users = getConfig('alarmUsers');
     console.log('WaterAlarm init.');
-    notifyQueue.add({text: message, userId: users[0]})
     gpioValue(waterAlarmPin).watch((err, value) => {
         if (err) {
             console.log('Alarm. WaterAlarm pin getting error');
