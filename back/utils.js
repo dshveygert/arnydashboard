@@ -22,7 +22,7 @@ function addZeroToNumber(n) {
 }
 
 let lastUpdateTime = nowTime('unix');
-export let debouncePeriod = 1000;
+export let debouncePeriod = 2000;
 let previousText = 'no_data';
 
 export function debounceMessages(text, delay = debouncePeriod) {
@@ -38,16 +38,24 @@ export function debounceMessages(text, delay = debouncePeriod) {
 export class MessageQueue {
     queue;
     interval = undefined;
-    periodSec = 5;
+    queueTickPeriod = 5; // sec
+    debouncePeriod = 2; // sec
     callBack;
+    previousTick = undefined; // milliseconds
+    previousText = '-no_data-';
     constructor(callback, period) {
         this.queue = []; // {text: string, userId: number}[]
         this.callBack = callback;
-        this.periodSec = period;
+        this.queueTickPeriod = period;
     }
 
     add(item) {
-        this.queue.push(item);
+        const now = nowTime('unix');
+        if (!this.previousTick || ((now - this.previousText > (this.debouncePeriod * 1000)) && item.text !== this.previousText)) {
+            this.queue.push(item);
+            this.previousText = item.text;
+            this.previousTick = now;
+        }
     }
 
     remove() {
@@ -66,6 +74,6 @@ export class MessageQueue {
         this.action();
         this.interval = setInterval(() => {
             this.action();
-        }, this.periodSec * 1000);
+        }, this.queueTickPeriod * 1000);
     }
 }

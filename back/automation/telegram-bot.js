@@ -1,6 +1,6 @@
 // https://github.com/yagop/node-telegram-bot-api/blob/master/doc/usage.md#events
 import TelegramBot from 'node-telegram-bot-api';
-import {debounceMessages, MessageQueue, nowTime} from '../utils.js';
+import {MessageQueue, nowTime} from '../utils.js';
 
 import notificationConfig from './config/notification-config.js';
 
