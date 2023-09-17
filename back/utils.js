@@ -51,7 +51,7 @@ export class MessageQueue {
 
     add(item) {
         const now = nowTime('unix');
-        if (!this.previousTick || ((now - this.previousText > (this.debouncePeriod * 1000)) && item.text !== this.previousText)) {
+        if (!this.previousTick || ((now - this.previousTick > (this.debouncePeriod * 1000)) && item.text !== this.previousText)) {
             this.queue.push(item);
             this.previousText = item.text;
             this.previousTick = now;
