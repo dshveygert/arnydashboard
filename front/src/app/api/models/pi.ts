@@ -32,6 +32,7 @@ export interface ISettings {
   smsSendDelay: number;
   smsUsers: IUser[];
   doorOpenedAt: string;
+  waterAlarmedAt: string;
   started: string;
   imGoOut: number;
   imGoOutTimeout: number;

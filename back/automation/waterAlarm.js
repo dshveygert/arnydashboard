@@ -1,6 +1,6 @@
 import {gpioValue, isStatusPinOn} from './gpio.js';
 import {nowTime} from '../utils.js';
-import {getConfig} from './config/config.js';
+import {getConfig, setConfig} from './config/config.js';
 import {alarmQueue, notifyQueue} from './telegram-bot.js';
 
 const waterAlarmPin = 'in17';
@@ -24,6 +24,7 @@ export function init() {
         }
         if (!!value) {
             sendWaterAlarm();
+            setConfig('waterAlarmedAt', nowTime());
         }
     })
 }

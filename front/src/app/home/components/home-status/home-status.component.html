@@ -74,6 +74,26 @@
       </mat-card-footer>
     </mat-card>
 
+    <mat-card class="status-card">
+      <mat-card-title>Water</mat-card-title>
+      <mat-card-content>
+        <div class="blocks">
+          <app-water-status
+            [status]="status.statusByName('in17')"
+            [setting]="settingsStatus.statusByName$('waterAlarmedAt')"
+          ></app-water-status>
+        </div>
+
+
+      </mat-card-content>
+
+      <mat-divider inset></mat-divider>
+
+      <mat-card-footer>
+        <!--    <mat-progress-bar mode="indeterminate" *ngIf="l.loading$|async"></mat-progress-bar>-->
+      </mat-card-footer>
+    </mat-card>
+
     <mat-card class="status-card quick-settings">
       <mat-card-content>
         <div class="blocks">

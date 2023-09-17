@@ -11,6 +11,7 @@ const automationConfig = {
   smsSendDelay: 10,
   smsUsers: [0],
   doorOpenedAt: 'NoData',
+  waterAlarmedAt: 'NoData',
   started: 'NoData',
   imGoOut: 0,
   nightAmbientLightStatus: 0,
