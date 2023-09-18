@@ -39,7 +39,7 @@ export class MessageQueue {
     queue;
     interval = undefined;
     queueTickPeriod = 5; // sec
-    debouncePeriod = 2; // sec
+    debouncePeriod = 3; // sec
     callBack;
     previousTick = undefined; // milliseconds
     previousText = '-no_data-';
