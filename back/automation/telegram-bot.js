@@ -44,7 +44,7 @@ export let notifyQueue;
 
 export function init() {
     console.log('Telegram bot init');
-    startBot();
+    // startBot();
     alarmQueue = new MessageQueue(sendMessage, 3);
     alarmQueue.init();
     notifyQueue = new MessageQueue(notifyMessage, 7);
