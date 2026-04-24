@@ -1,3 +1,4 @@
+import axios from 'axios';
 import * as gpio from './back/automation/gpio.js';
 import * as ambient from './back/automation/ambient-light.js';
 import * as hallLight from './back/automation/hall-light.js';
@@ -6,6 +7,11 @@ import * as alarm from './back/automation/alarm.js';
 import * as waterAlarm from './back/automation/waterAlarm.js';
 
 import * as server from './back/api/index.js';
+import {environment} from "./back/environments/environment.js";
+
+export const axiosInstance = axios.create({
+  baseURL: environment.proxy,
+});
 
 gpio.init();
 server.init();

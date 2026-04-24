@@ -30,7 +30,6 @@ export function sendSMS(text = '_') {
 };
 
 function getSmsApiRequest(apiUrl) {
-  console.log('axios: ', apiUrl);
   axios.get(apiUrl)
       .then(({ status, data, error }) => {
         // console.log(status, data, error);
