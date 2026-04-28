@@ -27,7 +27,6 @@ export async function sendMessage(text = '', userId = 0) {
     const id = notificationConfig.telegram_bot.user[userId].id;
     // return bot.sendMessage(notificationConfig.telegram_bot.user[userId].id, text);
     const result = await botProxy(text, 'alert', id);
-    console.log('sendMessage result', result );
     return result;
 }
 
@@ -35,7 +34,6 @@ export async function notifyMessage(text = '', userId = 0) {
     const id = notificationConfig.telegram_bot.user[userId].id;
     // return botNotifier.sendMessage(notificationConfig.telegram_bot.user[userId].id, text);
     const result = await botProxy(text, 'notification', id);
-    console.log('notifyMessage result', result );
     return result;
 }
 

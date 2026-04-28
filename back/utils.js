@@ -42,6 +42,7 @@ export class MessageQueue {
     debouncePeriod = 3; // sec
     callBack;
     previousTick = undefined; // milliseconds
+    previousUserId = -1;
     previousText = '-no_data-';
     constructor(callback, period) {
         this.queue = []; // {text: string, userId: number}[]
@@ -51,9 +52,10 @@ export class MessageQueue {
 
     add(item) {
         const now = nowTime('unix');
-        if (!this.previousTick || ((now - this.previousTick > (this.debouncePeriod * 1000)) && item.text !== this.previousText)) {
+        if (!this.previousTick  || this.previousUserId < 0 || (((now - this.previousTick > (this.debouncePeriod * 1000)) || item.userId !== this.previousUserId) && item.text !== this.previousText)) {
             this.queue.push(item);
-            this.previousText = item.text;
+            this.previousText = `${item.text}|${item.userId}`;
+            this.previousUserId = item.userId;
             this.previousTick = now;
         }
     }
